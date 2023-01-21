@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 100px;
+  width: 500px;
+  padding: 20px 10px 20px 10px;
+}
+.container--header {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  padding: 0 8px 0 8px;
+}
+.container--header #addToDo {
+  width: 90%;
+  height: 2rem;
+  border: none;
+  outline: none;
+}
+.container--header .fa-plus {
+  font-size: x-large;
+}
+.container--header .fa-plus:hover {
+  color: rgba(20, 168, 0, 0.644);
+  cursor: pointer;
+}
+.container--list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.container--list-item {
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.container--list-item .todo {
+  width: 80%;
+  height: 17px;
+}
+.container--list-item #checked {
+  appearance: none;
+  background-color: red;
+  margin: 0;
+  font: inherit;
+  width: 1.3em;
+  height: 1.3em;
+  border: 1px solid grey;
+  border-radius: 10px;
+  transform: translateY(-0.075em);
+  cursor: pointer;
+}
+.container--list-item #checked:checked {
+  background-color: rgb(3, 192, 19);
+}
+.container--list-item .fa-trash:hover {
+  color: rgba(255, 0, 0, 0.644);
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=style.css.map */
