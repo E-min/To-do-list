@@ -2,8 +2,10 @@ const container = document.querySelector('.container');
 const listContainer = document.querySelector('.container--list');
 const textInput = document.getElementById('addToDo');
 
+// get values from local storage 
 const storedData = JSON.parse(localStorage.getItem("todo")) || [];
 
+// create elements when page loaded
 window.addEventListener('load', () => {
     storedData.forEach(listElement => {
         createTodoList(listElement)
@@ -17,7 +19,6 @@ container.addEventListener('click', (e) => {
         completed: false,
         text: textInput.value
     }
-
     if(elementClassName === 'fa-plus') {
         if (!textInput.value) {
         alert('Enter text to Add new to do...');
@@ -27,20 +28,20 @@ container.addEventListener('click', (e) => {
         storedData.push(itemListInfo);
         textInput.value = '';
     } else if (elementClassName === 'fa-trash') {
-      
+        storedData.map((itemInfo, index) => {
+            e.target.closest('div').id == itemInfo.id && (storedData.splice(index, 1), e.target.closest('div').remove())
+        });
     } else if (elementClassName === 'checked') {
         storedData.map(itemInfo => {
-        e.target.closest('div').id == itemInfo.id && (itemInfo.completed = e.target.checked);
+        e.target.closest('div').id == itemInfo.id && (itemInfo.completed = e.target.checked, done(itemInfo.completed, e.target));
        })
     }
-    console.log(e.target.closest('div').id)
     localStorage.setItem('todo', JSON.stringify(storedData))
 })
 
 
 const createTodoList = (listElement) => {
-   
-   const {id, checked, text} = listElement;
+   const {id, completed, text} = listElement;
    
    //create list item container
    const createListItem = document.createElement('div');
@@ -52,12 +53,15 @@ const createTodoList = (listElement) => {
    createCheckBox.setAttribute('type', 'checkbox');
    createCheckBox.setAttribute('id', 'checked');
    createCheckBox.classList.add('checked');
-   createCheckBox.checked = checked
-   
+   createCheckBox.checked = completed
+
    //create text box for todo content
    const createTextBox = document.createElement('div');
    createTextBox.setAttribute('class', 'todo');
    createTextBox.innerText = text;
+   //if list item checked change text decoration
+   completed ? createTextBox.style.textDecoration = 'line-through': 
+   createTextBox.style.textDecoration = 'none';
    
    //create trash icon
    const createTrashIcon = document.createElement('i');
@@ -67,4 +71,11 @@ const createTodoList = (listElement) => {
    createListItem.appendChild(createCheckBox);
    createListItem.appendChild(createTextBox);
    createListItem.appendChild(createTrashIcon);
+}
+
+
+//checked function
+const done = (value, element) => { 
+    value ? element.nextElementSibling.style.textDecoration = 'line-through' :
+    element.nextElementSibling.style.textDecoration = 'none'
 }
